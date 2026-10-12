@@ -6,5 +6,10 @@ namespace BaobabRidgeRecords
         {
             InitializeComponent();
         }
+
+        private void grpAnimalDetails_Enter(object sender, EventArgs e)
+        {
+
+        }
     }
 }
