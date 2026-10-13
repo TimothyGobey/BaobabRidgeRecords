@@ -2,9 +2,13 @@
 
 ## Team Members
   M-Jay Williams
+  
   Timothy Gobey
+  
   Precious Nemukula
+  
   Jarrod Andrew Louw Louw
+  
 
 ## Implemented Features
 * Feature 1: Add a new animal
