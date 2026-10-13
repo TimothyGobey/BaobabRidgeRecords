@@ -277,7 +277,6 @@
             grpAnimalDetails.TabIndex = 23;
             grpAnimalDetails.TabStop = false;
             grpAnimalDetails.Text = "Animal Details";
-            grpAnimalDetails.Enter += grpAnimalDetails_Enter;
             // 
             // grpSearchActions
             // 
@@ -320,6 +319,7 @@
             Controls.Add(grpAnimalDetails);
             Name = "Form1";
             Text = "Form1";
+            Load += Form1_Load;
             ((System.ComponentModel.ISupportInitialize)dgvAnimals).EndInit();
             grpAnimalDetails.ResumeLayout(false);
             grpAnimalDetails.PerformLayout();
