@@ -140,7 +140,7 @@ namespace BaobabRidgeRecords
 
             // 4. Confirm before deleting
             DialogResult confirm = MessageBox.Show(
-                $"Are you sure you want to delete {animalToDelete.Name} (ID: {animalToDelete.AnimalId})?",
+                $"Are you sure you want to delete {animalToDelete.AnimalId} ({animalToDelete.Name})? This cannot be undone",
                 "Confirm Delete",
                 MessageBoxButtons.YesNo,
                 MessageBoxIcon.Question
