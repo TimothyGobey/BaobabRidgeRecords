@@ -176,6 +176,7 @@
             btnDelete.TabIndex = 12;
             btnDelete.Text = "Delete Selected Animal";
             btnDelete.UseVisualStyleBackColor = true;
+            btnDelete.Click += btnDelete_Click;
             // 
             // dgvAnimals
             // 
