@@ -55,70 +55,129 @@ namespace BaobabRidgeRecords
 
         private void btnGenerateSummary_Click(object sender, EventArgs e)
         {
-            // Check if the animal list is empty
-            if (animalList.Count == 0)
-            {
-                MessageBox.Show("No animal records available to generate summary.", "Summary Info", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                return;
-            }
+            string filePath = System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "animals.txt");
+            string summaryPath = System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "summary.txt");
 
-            // 1. Total Animals
-            int totalCount = animalList.Count;
-
-            // 2. Average Age and Average Recovery Score
+            int totalAnimals = 0;
             double totalAge = 0;
             double totalScore = 0;
 
-            // 3. Status Counters
             int criticalCount = 0;
             int seriousCount = 0;
             int stableCount = 0;
             int recoveringCount = 0;
             int releaseReadyCount = 0;
 
-            // Loop through each animal once to aggregate all values
-            foreach (Animal a in animalList)
+            try
             {
-                totalAge += a.Age;
-                totalScore += a.RecoveryScore;
+                if (System.IO.File.Exists(filePath))
+                {
+                    string[] lines = System.IO.File.ReadAllLines(filePath);
+                    foreach (string line in lines)
+                    {
+                        if (string.IsNullOrWhiteSpace(line)) continue;
 
-                if (a.Status == "Critical")
-                    criticalCount++;
-                else if (a.Status == "Serious")
-                    seriousCount++;
-                else if (a.Status == "Stable")
-                    stableCount++;
-                else if (a.Status == "Recovering")
-                    recoveringCount++;
-                else if (a.Status == "Release-Ready")
-                    releaseReadyCount++;
+                        string[] parts = line.Split('|');
+                        if (parts.Length == 7)
+                        {
+                            if (int.TryParse(parts[3].Trim(), out int age) && int.TryParse(parts[4].Trim(), out int score))
+                            {
+                                totalAnimals++;
+                                totalAge += age;
+                                totalScore += score;
+
+                                // Count using the Status already stored in the file
+                                string status = parts[5].Trim();
+                                if (status == "Critical") criticalCount++;
+                                else if (status == "Serious") seriousCount++;
+                                else if (status == "Stable") stableCount++;
+                                else if (status == "Recovering") recoveringCount++;
+                                else if (status == "Release-Ready") releaseReadyCount++;
+                            }
+                        }
+                    }
+                }
+            }
+            catch (UnauthorizedAccessException)
+            {
+                MessageBox.Show("You do not have permission to read animals.txt.");
+                return;
+            }
+            catch (IOException)
+            {
+                MessageBox.Show("animals.txt is in use by another program or cannot be read.");
+                return;
             }
 
-            double avgAge = totalAge / totalCount;
-            double avgScore = totalScore / totalCount;
+            string avgAgeDisplay;
+            string avgScoreDisplay;
 
-            // 4. Update the labels on the screen
-            lblSummaryTotal.Text = $"Total Animals: {totalCount}";
-            lblSummaryAvgAge.Text = $"Avg Age: {avgAge:F1}";
-            lblSummaryAvgScore.Text = $"Avg Score: {avgScore:F1}";
+            if (totalAnimals > 0)
+            {
+                double avgAge = totalAge / totalAnimals;
+                double avgScore = totalScore / totalAnimals;
+                avgAgeDisplay = avgAge.ToString("F2", System.Globalization.CultureInfo.InvariantCulture);
+                avgScoreDisplay = avgScore.ToString("F2", System.Globalization.CultureInfo.InvariantCulture);
+            }
+            else
+            {
+                avgAgeDisplay = "N/A";
+                avgScoreDisplay = "N/A";
+            }
+
+            lblSummaryTotal.Text = $"Total Animals: {totalAnimals}";
+            lblSummaryAvgAge.Text = $"Avg Age: {avgAgeDisplay}";
+            lblSummaryAvgScore.Text = $"Avg Score: {avgScoreDisplay}";
 
             lblCountCritical.Text = $"Critical: {criticalCount}";
             lblCountSerious.Text = $"Serious: {seriousCount}";
             lblCountStable.Text = $"Stable: {stableCount}";
             lblCountRecovering.Text = $"Recovering: {recoveringCount}";
             lblCountReleaseReady.Text = $"Release-Ready: {releaseReadyCount}";
+
+            string timestamp = DateTime.Now.ToString("yyyy-MM-dd HH:mm");
+
+            try
+            {
+                using (System.IO.StreamWriter writer = new System.IO.StreamWriter(summaryPath, false))
+                {
+                    writer.WriteLine("BAOBAB RIDGE WILDLIFE REHABILITATION CENTRE");
+                    writer.WriteLine("ANIMAL SUMMARY REPORT");
+                    writer.WriteLine($"Generated: {timestamp}");
+                    writer.WriteLine("----------------------------------------");
+                    writer.WriteLine($"Total animals:          {totalAnimals}");
+                    writer.WriteLine($"Average age (years):    {avgAgeDisplay}");
+                    writer.WriteLine($"Average recovery score: {avgScoreDisplay}");
+                    writer.WriteLine("----------------------------------------");
+                    writer.WriteLine("Animals per status:");
+                    writer.WriteLine($"  Critical:             {criticalCount}");
+                    writer.WriteLine($"  Serious:              {seriousCount}");
+                    writer.WriteLine($"  Stable:               {stableCount}");
+                    writer.WriteLine($"  Recovering:           {recoveringCount}");
+                    writer.WriteLine($"  Release-Ready:        {releaseReadyCount}");
+                }
+            }
+            catch (UnauthorizedAccessException)
+            {
+                MessageBox.Show("You do not have permission to write summary.txt.");
+            }
+            catch (IOException)
+            {
+                MessageBox.Show("summary.txt is in use by another program or cannot be written.");
+            }
         }
 
         private void btnDelete_Click(object sender, EventArgs e)
         {
-            string searchId = txtSearchID.Text.Trim();
-
-            // 1. Check if the user entered an ID
-            if (string.IsNullOrEmpty(searchId))
+            // 1. Check that a row is selected in the grid
+            if (dgvAnimals.CurrentRow == null)
             {
-                MessageBox.Show("Please enter an Animal ID to delete.", "Input Required", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                MessageBox.Show("Please select an animal in the grid first.", "Selection Required", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                 return;
             }
+
+            // Column 0 is Animal ID
+            string searchId = dgvAnimals.CurrentRow.Cells[0].Value.ToString();
 
             // 2. Find the animal with that ID
             Animal animalToDelete = null;
@@ -140,7 +199,7 @@ namespace BaobabRidgeRecords
 
             // 4. Confirm before deleting
             DialogResult confirm = MessageBox.Show(
-                $"Are you sure you want to delete {animalToDelete.AnimalId} ({animalToDelete.Name})? This cannot be undone",
+                $"Delete {animalToDelete.AnimalId} ({animalToDelete.Name})? This cannot be undone.",
                 "Confirm Delete",
                 MessageBoxButtons.YesNo,
                 MessageBoxIcon.Question
@@ -148,20 +207,40 @@ namespace BaobabRidgeRecords
 
             if (confirm == DialogResult.Yes)
             {
-                // Remove from the list in memory
-                animalList.Remove(animalToDelete);
+                // Path matches the AppDomain style used in Summary
+                string filePath = System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "animals.txt");
 
-                // Save the updated list back to animals.txt
+                // Build the lines for every animal except the one being deleted
                 List<string> lines = new List<string>();
                 foreach (Animal a in animalList)
                 {
-                    lines.Add($"{a.AnimalId}|{a.Name}|{a.Species}|{a.Age}|{a.RecoveryScore}|{a.Status}|{a.HousingUnit}");
+                    if (a != animalToDelete)
+                    {
+                        lines.Add($"{a.AnimalId}|{a.Name}|{a.Species}|{a.Age}|{a.RecoveryScore}|{a.Status}|{a.HousingUnit}");
+                    }
                 }
-                File.WriteAllLines("animals.txt", lines);
 
-                // Clear the search box and notify user
-                txtSearchID.Clear();
-                MessageBox.Show("Animal record deleted successfully.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                try
+                {
+                    System.IO.File.WriteAllLines(filePath, lines);
+
+                    // Only remove from memory once the file was saved successfully
+                    animalList.Remove(animalToDelete);
+
+                    // Refresh the grid display to remove the deleted row from view
+                    dgvAnimals.DataSource = null;
+                    dgvAnimals.DataSource = animalList;
+
+                    MessageBox.Show("Animal record deleted successfully.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+                catch (UnauthorizedAccessException)
+                {
+                    MessageBox.Show("You do not have permission to update animals.txt.", "Permission Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
+                catch (System.IO.IOException)
+                {
+                    MessageBox.Show("animals.txt is in use by another program or cannot be written.", "File Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
             }
         }
     }
