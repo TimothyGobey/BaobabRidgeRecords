@@ -146,10 +146,12 @@
             btnAdd.Size = new Size(163, 33);
             btnAdd.TabIndex = 7;
             btnAdd.Text = "Add Animal";
-            btnAdd.UseVisualStyleBackColor = true;
+            btnAdd.UseVisualStyleBackColor = false;
             // 
             // btnSave
             // 
+            btnSave.BackColor = Color.FromArgb(41, 128, 185);
+            btnSave.Cursor = Cursors.Hand;
             btnSave.Enabled = false;
             btnSave.Font = new Font("Segoe UI", 11.25F);
             btnSave.Location = new Point(217, 266);
@@ -157,7 +159,7 @@
             btnSave.Size = new Size(140, 33);
             btnSave.TabIndex = 8;
             btnSave.Text = "Save Changes";
-            btnSave.UseVisualStyleBackColor = true;
+            btnSave.UseVisualStyleBackColor = false;
             // 
             // btnClear
             // 
@@ -167,7 +169,7 @@
             btnClear.Size = new Size(134, 33);
             btnClear.TabIndex = 9;
             btnClear.Text = "Clear Form";
-            btnClear.UseVisualStyleBackColor = true;
+            btnClear.UseVisualStyleBackColor = false;
             // 
             // txtSearchID
             // 
@@ -185,7 +187,7 @@
             btnSearch.Size = new Size(184, 32);
             btnSearch.TabIndex = 11;
             btnSearch.Text = "Search ID";
-            btnSearch.UseVisualStyleBackColor = true;
+            btnSearch.UseVisualStyleBackColor = false;
             // 
             // btnDelete
             // 
@@ -195,7 +197,8 @@
             btnDelete.Size = new Size(184, 31);
             btnDelete.TabIndex = 12;
             btnDelete.Text = "Delete Selected Animal";
-            btnDelete.UseVisualStyleBackColor = true;
+            btnDelete.UseVisualStyleBackColor = false;
+            btnDelete.Click += btnDelete_Click;
             // 
             // dgvAnimals
             // 
@@ -205,6 +208,7 @@
             dgvAnimals.MultiSelect = false;
             dgvAnimals.Name = "dgvAnimals";
             dgvAnimals.ReadOnly = true;
+            dgvAnimals.RowHeadersWidth = 51;
             dgvAnimals.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             dgvAnimals.Size = new Size(707, 194);
             dgvAnimals.TabIndex = 13;
@@ -216,8 +220,9 @@
             btnGenerateSummary.Name = "btnGenerateSummary";
             btnGenerateSummary.Size = new Size(847, 47);
             btnGenerateSummary.TabIndex = 14;
-            btnGenerateSummary.Text = "Generate Summary";
-            btnGenerateSummary.UseVisualStyleBackColor = true;
+            btnGenerateSummary.Text = "Generate Summary\r\n";
+            btnGenerateSummary.UseVisualStyleBackColor = false;
+            btnGenerateSummary.Click += btnGenerateSummary_Click;
             // 
             // lblSummaryTotal
             // 
@@ -319,9 +324,11 @@
             grpAnimalDetails.Controls.Add(lblCalculatedHousing);
             grpAnimalDetails.Controls.Add(txtAge);
             grpAnimalDetails.Controls.Add(lblCalculatedStatus);
-            grpAnimalDetails.Location = new Point(25, 24);
+            grpAnimalDetails.Location = new Point(33, 36);
+            grpAnimalDetails.Margin = new Padding(3, 5, 3, 5);
             grpAnimalDetails.Name = "grpAnimalDetails";
-            grpAnimalDetails.Size = new Size(564, 330);
+            grpAnimalDetails.Padding = new Padding(3, 5, 3, 5);
+            grpAnimalDetails.Size = new Size(726, 506);
             grpAnimalDetails.TabIndex = 23;
             grpAnimalDetails.TabStop = false;
             grpAnimalDetails.Text = "Animal Details";
@@ -408,9 +415,11 @@
             grpSummaryReport.Controls.Add(lblCountCritical);
             grpSummaryReport.Controls.Add(lblCountStable);
             grpSummaryReport.Controls.Add(lblCountSerious);
-            grpSummaryReport.Location = new Point(25, 386);
+            grpSummaryReport.Location = new Point(33, 552);
+            grpSummaryReport.Margin = new Padding(3, 5, 3, 5);
             grpSummaryReport.Name = "grpSummaryReport";
-            grpSummaryReport.Size = new Size(1343, 262);
+            grpSummaryReport.Padding = new Padding(3, 5, 3, 5);
+            grpSummaryReport.Size = new Size(2189, 680);
             grpSummaryReport.TabIndex = 24;
             grpSummaryReport.TabStop = false;
             grpSummaryReport.Text = "Summary Report";
@@ -527,13 +536,19 @@
             // 
             // Form1
             // 
-            AutoScaleDimensions = new SizeF(7F, 15F);
+            AutoScaleDimensions = new SizeF(9F, 23F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(1382, 660);
+            BackColor = Color.WhiteSmoke;
+            ClientSize = new Size(1776, 1012);
             Controls.Add(grpSummaryReport);
             Controls.Add(grpSearchActions);
             Controls.Add(grpAnimalDetails);
+            Font = new Font("Segoe UI", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            FormBorderStyle = FormBorderStyle.FixedSingle;
+            Margin = new Padding(3, 5, 3, 5);
+            MaximizeBox = false;
             Name = "Form1";
+            StartPosition = FormStartPosition.CenterScreen;
             Text = "Form1";
             Load += Form1_Load;
             ((System.ComponentModel.ISupportInitialize)dgvAnimals).EndInit();
