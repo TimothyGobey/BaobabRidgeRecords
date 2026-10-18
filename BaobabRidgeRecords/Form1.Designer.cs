@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
             txtAnimalID = new TextBox();
             txtName = new TextBox();
             txtSpecies = new TextBox();
@@ -52,83 +53,97 @@
             lblCountRecovering = new Label();
             lblCountReleaseReady = new Label();
             grpAnimalDetails = new GroupBox();
+            lblRecoveryScoreStatic = new Label();
+            lblAgeStatic = new Label();
+            lblSpeciesStatic = new Label();
+            lblNameStatic = new Label();
+            lblAnimalIDStatic = new Label();
             grpSearchActions = new GroupBox();
             grpSummaryReport = new GroupBox();
+            lblReadyReleaseCount = new Label();
+            lblRecoveringCountStatic = new Label();
+            lblSeriousCountStatic = new Label();
+            lblStableCountStatic = new Label();
+            lblCriticalCountStatic = new Label();
+            lblSummaryAverageScoreStatic = new Label();
+            lblSummaryAvgAgeStatic = new Label();
+            lblSummaryTotalStatic = new Label();
+            lblStatusStatic = new Label();
+            lblHousingStatic = new Label();
+            pictureBox1 = new PictureBox();
             ((System.ComponentModel.ISupportInitialize)dgvAnimals).BeginInit();
             grpAnimalDetails.SuspendLayout();
             grpSearchActions.SuspendLayout();
             grpSummaryReport.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             SuspendLayout();
             // 
             // txtAnimalID
             // 
-            txtAnimalID.Location = new Point(246, 42);
-            txtAnimalID.Margin = new Padding(3, 5, 3, 5);
+            txtAnimalID.Font = new Font("Segoe UI", 11.25F);
+            txtAnimalID.Location = new Point(156, 31);
             txtAnimalID.Name = "txtAnimalID";
-            txtAnimalID.Size = new Size(200, 30);
+            txtAnimalID.Size = new Size(100, 27);
             txtAnimalID.TabIndex = 0;
             // 
             // txtName
             // 
-            txtName.Location = new Point(246, 87);
-            txtName.Margin = new Padding(3, 5, 3, 5);
+            txtName.Font = new Font("Segoe UI", 11.25F);
+            txtName.Location = new Point(156, 60);
             txtName.Name = "txtName";
-            txtName.Size = new Size(200, 30);
+            txtName.Size = new Size(100, 27);
             txtName.TabIndex = 1;
             // 
             // txtSpecies
             // 
-            txtSpecies.Location = new Point(246, 132);
-            txtSpecies.Margin = new Padding(3, 5, 3, 5);
+            txtSpecies.Font = new Font("Segoe UI", 11.25F);
+            txtSpecies.Location = new Point(156, 89);
             txtSpecies.Name = "txtSpecies";
-            txtSpecies.Size = new Size(200, 30);
+            txtSpecies.Size = new Size(100, 27);
             txtSpecies.TabIndex = 2;
             // 
             // txtAge
             // 
-            txtAge.Location = new Point(246, 177);
-            txtAge.Margin = new Padding(3, 5, 3, 5);
+            txtAge.Font = new Font("Segoe UI", 11.25F);
+            txtAge.Location = new Point(156, 119);
             txtAge.Name = "txtAge";
-            txtAge.Size = new Size(200, 30);
+            txtAge.Size = new Size(100, 27);
             txtAge.TabIndex = 3;
             // 
             // txtRecoveryScore
             // 
-            txtRecoveryScore.Location = new Point(246, 222);
-            txtRecoveryScore.Margin = new Padding(3, 5, 3, 5);
+            txtRecoveryScore.Font = new Font("Segoe UI", 11.25F);
+            txtRecoveryScore.Location = new Point(156, 148);
             txtRecoveryScore.Name = "txtRecoveryScore";
-            txtRecoveryScore.Size = new Size(200, 30);
+            txtRecoveryScore.Size = new Size(100, 27);
             txtRecoveryScore.TabIndex = 4;
             // 
             // lblCalculatedStatus
             // 
             lblCalculatedStatus.AutoSize = true;
-            lblCalculatedStatus.Location = new Point(246, 282);
+            lblCalculatedStatus.Font = new Font("Segoe UI", 11.25F);
+            lblCalculatedStatus.Location = new Point(156, 187);
             lblCalculatedStatus.Name = "lblCalculatedStatus";
-            lblCalculatedStatus.Size = new Size(136, 23);
+            lblCalculatedStatus.Size = new Size(37, 20);
             lblCalculatedStatus.TabIndex = 5;
-            lblCalculatedStatus.Text = "CalculatedStatus";
+            lblCalculatedStatus.Text = "[---]";
             // 
             // lblCalculatedHousing
             // 
             lblCalculatedHousing.AutoSize = true;
-            lblCalculatedHousing.Location = new Point(246, 332);
+            lblCalculatedHousing.Font = new Font("Bookman Old Style", 11.25F);
+            lblCalculatedHousing.Location = new Point(156, 218);
             lblCalculatedHousing.Name = "lblCalculatedHousing";
-            lblCalculatedHousing.Size = new Size(153, 23);
+            lblCalculatedHousing.Size = new Size(37, 19);
             lblCalculatedHousing.TabIndex = 6;
-            lblCalculatedHousing.Text = "CalculatedHousing";
+            lblCalculatedHousing.Text = "[---]";
             // 
             // btnAdd
             // 
-            btnAdd.BackColor = Color.FromArgb(41, 128, 185);
-            btnAdd.Cursor = Cursors.Hand;
-            btnAdd.FlatAppearance.BorderSize = 0;
-            btnAdd.FlatStyle = FlatStyle.Flat;
-            btnAdd.ForeColor = Color.FromArgb(30, 30, 30);
-            btnAdd.Location = new Point(26, 383);
-            btnAdd.Margin = new Padding(3, 5, 3, 5);
+            btnAdd.Font = new Font("Segoe UI", 11.25F);
+            btnAdd.Location = new Point(20, 266);
             btnAdd.Name = "btnAdd";
-            btnAdd.Size = new Size(97, 35);
+            btnAdd.Size = new Size(163, 33);
             btnAdd.TabIndex = 7;
             btnAdd.Text = "Add Animal";
             btnAdd.UseVisualStyleBackColor = false;
@@ -138,66 +153,48 @@
             btnSave.BackColor = Color.FromArgb(41, 128, 185);
             btnSave.Cursor = Cursors.Hand;
             btnSave.Enabled = false;
-            btnSave.FlatAppearance.BorderSize = 0;
-            btnSave.FlatStyle = FlatStyle.Flat;
-            btnSave.ForeColor = Color.FromArgb(30, 30, 30);
-            btnSave.Location = new Point(152, 383);
-            btnSave.Margin = new Padding(3, 5, 3, 5);
+            btnSave.Font = new Font("Segoe UI", 11.25F);
+            btnSave.Location = new Point(217, 266);
             btnSave.Name = "btnSave";
-            btnSave.Size = new Size(97, 35);
+            btnSave.Size = new Size(140, 33);
             btnSave.TabIndex = 8;
             btnSave.Text = "Save Changes";
             btnSave.UseVisualStyleBackColor = false;
             // 
             // btnClear
             // 
-            btnClear.BackColor = Color.FromArgb(41, 128, 185);
-            btnClear.Cursor = Cursors.Hand;
-            btnClear.FlatAppearance.BorderSize = 0;
-            btnClear.FlatStyle = FlatStyle.Flat;
-            btnClear.ForeColor = Color.FromArgb(30, 30, 30);
-            btnClear.Location = new Point(278, 383);
-            btnClear.Margin = new Padding(3, 5, 3, 5);
+            btnClear.Font = new Font("Segoe UI", 11.25F);
+            btnClear.Location = new Point(388, 266);
             btnClear.Name = "btnClear";
-            btnClear.Size = new Size(97, 35);
+            btnClear.Size = new Size(134, 33);
             btnClear.TabIndex = 9;
             btnClear.Text = "Clear Form";
             btnClear.UseVisualStyleBackColor = false;
             // 
             // txtSearchID
             // 
-            txtSearchID.Location = new Point(33, 29);
-            txtSearchID.Margin = new Padding(3, 5, 3, 5);
+            txtSearchID.Font = new Font("Segoe UI", 11.25F);
+            txtSearchID.Location = new Point(15, 22);
             txtSearchID.Name = "txtSearchID";
-            txtSearchID.Size = new Size(451, 30);
+            txtSearchID.Size = new Size(351, 27);
             txtSearchID.TabIndex = 10;
             // 
             // btnSearch
             // 
-            btnSearch.BackColor = Color.FromArgb(41, 128, 185);
-            btnSearch.Cursor = Cursors.Hand;
-            btnSearch.FlatAppearance.BorderSize = 0;
-            btnSearch.FlatStyle = FlatStyle.Flat;
-            btnSearch.ForeColor = Color.FromArgb(30, 30, 30);
-            btnSearch.Location = new Point(595, 29);
-            btnSearch.Margin = new Padding(3, 5, 3, 5);
+            btnSearch.Font = new Font("Segoe UI", 11.25F);
+            btnSearch.Location = new Point(519, 19);
             btnSearch.Name = "btnSearch";
-            btnSearch.Size = new Size(97, 35);
+            btnSearch.Size = new Size(184, 32);
             btnSearch.TabIndex = 11;
             btnSearch.Text = "Search ID";
             btnSearch.UseVisualStyleBackColor = false;
             // 
             // btnDelete
             // 
-            btnDelete.BackColor = Color.FromArgb(192, 57, 43);
-            btnDelete.Cursor = Cursors.Hand;
-            btnDelete.FlatAppearance.BorderSize = 0;
-            btnDelete.FlatStyle = FlatStyle.Flat;
-            btnDelete.ForeColor = Color.White;
-            btnDelete.Location = new Point(704, 29);
-            btnDelete.Margin = new Padding(3, 5, 3, 5);
+            btnDelete.Font = new Font("Segoe UI", 11.25F);
+            btnDelete.Location = new Point(519, 78);
             btnDelete.Name = "btnDelete";
-            btnDelete.Size = new Size(97, 35);
+            btnDelete.Size = new Size(184, 31);
             btnDelete.TabIndex = 12;
             btnDelete.Text = "Delete Selected Animal";
             btnDelete.UseVisualStyleBackColor = false;
@@ -207,27 +204,21 @@
             // 
             dgvAnimals.AllowUserToAddRows = false;
             dgvAnimals.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dgvAnimals.Location = new Point(33, 132);
-            dgvAnimals.Margin = new Padding(3, 5, 3, 5);
+            dgvAnimals.Location = new Point(15, 119);
             dgvAnimals.MultiSelect = false;
             dgvAnimals.Name = "dgvAnimals";
             dgvAnimals.ReadOnly = true;
             dgvAnimals.RowHeadersWidth = 51;
             dgvAnimals.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            dgvAnimals.Size = new Size(768, 298);
+            dgvAnimals.Size = new Size(707, 194);
             dgvAnimals.TabIndex = 13;
             // 
             // btnGenerateSummary
             // 
-            btnGenerateSummary.BackColor = Color.ForestGreen;
-            btnGenerateSummary.Cursor = Cursors.Hand;
-            btnGenerateSummary.FlatAppearance.BorderSize = 0;
-            btnGenerateSummary.FlatStyle = FlatStyle.Flat;
-            btnGenerateSummary.ForeColor = Color.White;
-            btnGenerateSummary.Location = new Point(54, 52);
-            btnGenerateSummary.Margin = new Padding(3, 5, 3, 5);
+            btnGenerateSummary.Font = new Font("Segoe UI", 11.25F);
+            btnGenerateSummary.Location = new Point(42, 35);
             btnGenerateSummary.Name = "btnGenerateSummary";
-            btnGenerateSummary.Size = new Size(97, 35);
+            btnGenerateSummary.Size = new Size(847, 47);
             btnGenerateSummary.TabIndex = 14;
             btnGenerateSummary.Text = "Generate Summary\r\n";
             btnGenerateSummary.UseVisualStyleBackColor = false;
@@ -236,77 +227,93 @@
             // lblSummaryTotal
             // 
             lblSummaryTotal.AutoSize = true;
-            lblSummaryTotal.Location = new Point(54, 182);
+            lblSummaryTotal.Font = new Font("Segoe UI", 11.25F);
+            lblSummaryTotal.Location = new Point(266, 116);
             lblSummaryTotal.Name = "lblSummaryTotal";
-            lblSummaryTotal.Size = new Size(127, 23);
+            lblSummaryTotal.Size = new Size(37, 20);
             lblSummaryTotal.TabIndex = 15;
-            lblSummaryTotal.Text = "Total Animals: -";
+            lblSummaryTotal.Text = "[---]";
             // 
             // lblSummaryAvgAge
             // 
             lblSummaryAvgAge.AutoSize = true;
-            lblSummaryAvgAge.Location = new Point(195, 182);
+            lblSummaryAvgAge.Font = new Font("Segoe UI", 11.25F);
+            lblSummaryAvgAge.Location = new Point(266, 158);
             lblSummaryAvgAge.Name = "lblSummaryAvgAge";
-            lblSummaryAvgAge.Size = new Size(90, 23);
+            lblSummaryAvgAge.Size = new Size(37, 20);
             lblSummaryAvgAge.TabIndex = 16;
-            lblSummaryAvgAge.Text = "Avg Age: -";
+            lblSummaryAvgAge.Text = "[---]";
             // 
             // lblSummaryAvgScore
             // 
             lblSummaryAvgScore.AutoSize = true;
-            lblSummaryAvgScore.Location = new Point(358, 182);
+            lblSummaryAvgScore.Font = new Font("Segoe UI", 11.25F);
+            lblSummaryAvgScore.Location = new Point(266, 197);
             lblSummaryAvgScore.Name = "lblSummaryAvgScore";
-            lblSummaryAvgScore.Size = new Size(102, 23);
+            lblSummaryAvgScore.Size = new Size(37, 20);
             lblSummaryAvgScore.TabIndex = 17;
-            lblSummaryAvgScore.Text = "Avg Score: -";
+            lblSummaryAvgScore.Text = "[---]";
             // 
             // lblCountCritical
             // 
             lblCountCritical.AutoSize = true;
-            lblCountCritical.Location = new Point(70, 238);
+            lblCountCritical.Font = new Font("Segoe UI", 11.25F);
+            lblCountCritical.Location = new Point(558, 116);
             lblCountCritical.Name = "lblCountCritical";
-            lblCountCritical.Size = new Size(80, 23);
+            lblCountCritical.Size = new Size(37, 20);
             lblCountCritical.TabIndex = 18;
-            lblCountCritical.Text = "Critical: 0";
+            lblCountCritical.Text = "[---]";
             // 
             // lblCountSerious
             // 
             lblCountSerious.AutoSize = true;
-            lblCountSerious.Location = new Point(206, 238);
+            lblCountSerious.Font = new Font("Segoe UI", 11.25F);
+            lblCountSerious.Location = new Point(558, 197);
             lblCountSerious.Name = "lblCountSerious";
-            lblCountSerious.Size = new Size(83, 23);
+            lblCountSerious.Size = new Size(37, 20);
             lblCountSerious.TabIndex = 19;
-            lblCountSerious.Text = "Serious: 0";
+            lblCountSerious.Text = "[---]";
             // 
             // lblCountStable
             // 
             lblCountStable.AutoSize = true;
-            lblCountStable.Location = new Point(371, 238);
+            lblCountStable.Font = new Font("Segoe UI", 11.25F);
+            lblCountStable.Location = new Point(558, 158);
             lblCountStable.Name = "lblCountStable";
-            lblCountStable.Size = new Size(74, 23);
+            lblCountStable.Size = new Size(37, 20);
             lblCountStable.TabIndex = 20;
-            lblCountStable.Text = "Stable: 0";
+            lblCountStable.Text = "[---]";
             // 
             // lblCountRecovering
             // 
             lblCountRecovering.AutoSize = true;
-            lblCountRecovering.Location = new Point(70, 306);
+            lblCountRecovering.Font = new Font("Segoe UI", 11.25F);
+            lblCountRecovering.Location = new Point(852, 119);
             lblCountRecovering.Name = "lblCountRecovering";
-            lblCountRecovering.Size = new Size(112, 23);
+            lblCountRecovering.Size = new Size(37, 20);
             lblCountRecovering.TabIndex = 21;
-            lblCountRecovering.Text = "Recovering: 0";
+            lblCountRecovering.Text = "[---]";
             // 
             // lblCountReleaseReady
             // 
             lblCountReleaseReady.AutoSize = true;
-            lblCountReleaseReady.Location = new Point(206, 306);
+            lblCountReleaseReady.Font = new Font("Segoe UI", 11.25F);
+            lblCountReleaseReady.Location = new Point(852, 158);
             lblCountReleaseReady.Name = "lblCountReleaseReady";
-            lblCountReleaseReady.Size = new Size(138, 23);
+            lblCountReleaseReady.Size = new Size(37, 20);
             lblCountReleaseReady.TabIndex = 22;
-            lblCountReleaseReady.Text = "Release-Ready: 0";
+            lblCountReleaseReady.Text = "[---]";
             // 
             // grpAnimalDetails
             // 
+            grpAnimalDetails.Controls.Add(pictureBox1);
+            grpAnimalDetails.Controls.Add(lblHousingStatic);
+            grpAnimalDetails.Controls.Add(lblStatusStatic);
+            grpAnimalDetails.Controls.Add(lblRecoveryScoreStatic);
+            grpAnimalDetails.Controls.Add(lblAgeStatic);
+            grpAnimalDetails.Controls.Add(lblSpeciesStatic);
+            grpAnimalDetails.Controls.Add(lblNameStatic);
+            grpAnimalDetails.Controls.Add(lblAnimalIDStatic);
             grpAnimalDetails.Controls.Add(txtName);
             grpAnimalDetails.Controls.Add(txtRecoveryScore);
             grpAnimalDetails.Controls.Add(txtAnimalID);
@@ -326,23 +333,79 @@
             grpAnimalDetails.TabStop = false;
             grpAnimalDetails.Text = "Animal Details";
             // 
+            // lblRecoveryScoreStatic
+            // 
+            lblRecoveryScoreStatic.AutoSize = true;
+            lblRecoveryScoreStatic.Font = new Font("Segoe UI", 11.25F);
+            lblRecoveryScoreStatic.Location = new Point(20, 148);
+            lblRecoveryScoreStatic.Name = "lblRecoveryScoreStatic";
+            lblRecoveryScoreStatic.Size = new Size(110, 20);
+            lblRecoveryScoreStatic.TabIndex = 14;
+            lblRecoveryScoreStatic.Text = "Recovery Score";
+            // 
+            // lblAgeStatic
+            // 
+            lblAgeStatic.AutoSize = true;
+            lblAgeStatic.Font = new Font("Segoe UI", 11.25F);
+            lblAgeStatic.Location = new Point(20, 119);
+            lblAgeStatic.Name = "lblAgeStatic";
+            lblAgeStatic.Size = new Size(36, 20);
+            lblAgeStatic.TabIndex = 13;
+            lblAgeStatic.Text = "Age";
+            // 
+            // lblSpeciesStatic
+            // 
+            lblSpeciesStatic.AutoSize = true;
+            lblSpeciesStatic.Font = new Font("Segoe UI", 11.25F);
+            lblSpeciesStatic.Location = new Point(20, 89);
+            lblSpeciesStatic.Name = "lblSpeciesStatic";
+            lblSpeciesStatic.Size = new Size(59, 20);
+            lblSpeciesStatic.TabIndex = 12;
+            lblSpeciesStatic.Text = "Species";
+            // 
+            // lblNameStatic
+            // 
+            lblNameStatic.AutoSize = true;
+            lblNameStatic.Font = new Font("Segoe UI", 11.25F);
+            lblNameStatic.Location = new Point(20, 62);
+            lblNameStatic.Name = "lblNameStatic";
+            lblNameStatic.Size = new Size(100, 20);
+            lblNameStatic.TabIndex = 11;
+            lblNameStatic.Text = "Animal Name";
+            // 
+            // lblAnimalIDStatic
+            // 
+            lblAnimalIDStatic.AutoSize = true;
+            lblAnimalIDStatic.Font = new Font("Segoe UI", 11.25F);
+            lblAnimalIDStatic.Location = new Point(20, 31);
+            lblAnimalIDStatic.Name = "lblAnimalIDStatic";
+            lblAnimalIDStatic.Size = new Size(75, 20);
+            lblAnimalIDStatic.TabIndex = 10;
+            lblAnimalIDStatic.Text = "Animal ID";
+            // 
             // grpSearchActions
             // 
             grpSearchActions.Controls.Add(dgvAnimals);
             grpSearchActions.Controls.Add(txtSearchID);
             grpSearchActions.Controls.Add(btnSearch);
             grpSearchActions.Controls.Add(btnDelete);
-            grpSearchActions.Location = new Point(853, 36);
-            grpSearchActions.Margin = new Padding(3, 5, 3, 5);
+            grpSearchActions.Location = new Point(625, 24);
             grpSearchActions.Name = "grpSearchActions";
-            grpSearchActions.Padding = new Padding(3, 5, 3, 5);
-            grpSearchActions.Size = new Size(907, 506);
+            grpSearchActions.Size = new Size(743, 330);
             grpSearchActions.TabIndex = 10;
             grpSearchActions.TabStop = false;
-            grpSearchActions.Text = "Search Actions";
+            grpSearchActions.Text = "Search";
             // 
             // grpSummaryReport
             // 
+            grpSummaryReport.Controls.Add(lblReadyReleaseCount);
+            grpSummaryReport.Controls.Add(lblRecoveringCountStatic);
+            grpSummaryReport.Controls.Add(lblSeriousCountStatic);
+            grpSummaryReport.Controls.Add(lblStableCountStatic);
+            grpSummaryReport.Controls.Add(lblCriticalCountStatic);
+            grpSummaryReport.Controls.Add(lblSummaryAverageScoreStatic);
+            grpSummaryReport.Controls.Add(lblSummaryAvgAgeStatic);
+            grpSummaryReport.Controls.Add(lblSummaryTotalStatic);
             grpSummaryReport.Controls.Add(lblSummaryAvgScore);
             grpSummaryReport.Controls.Add(btnGenerateSummary);
             grpSummaryReport.Controls.Add(lblSummaryTotal);
@@ -361,6 +424,116 @@
             grpSummaryReport.TabStop = false;
             grpSummaryReport.Text = "Summary Report";
             // 
+            // lblReadyReleaseCount
+            // 
+            lblReadyReleaseCount.AutoSize = true;
+            lblReadyReleaseCount.Font = new Font("Segoe UI", 11.25F);
+            lblReadyReleaseCount.Location = new Point(654, 158);
+            lblReadyReleaseCount.Name = "lblReadyReleaseCount";
+            lblReadyReleaseCount.Size = new Size(151, 20);
+            lblReadyReleaseCount.TabIndex = 30;
+            lblReadyReleaseCount.Text = "Ready Release Count:";
+            // 
+            // lblRecoveringCountStatic
+            // 
+            lblRecoveringCountStatic.AutoSize = true;
+            lblRecoveringCountStatic.Font = new Font("Segoe UI", 11.25F);
+            lblRecoveringCountStatic.Location = new Point(654, 116);
+            lblRecoveringCountStatic.Name = "lblRecoveringCountStatic";
+            lblRecoveringCountStatic.Size = new Size(126, 20);
+            lblRecoveringCountStatic.TabIndex = 29;
+            lblRecoveringCountStatic.Text = "Recovering Count";
+            // 
+            // lblSeriousCountStatic
+            // 
+            lblSeriousCountStatic.AutoSize = true;
+            lblSeriousCountStatic.Font = new Font("Segoe UI", 11.25F);
+            lblSeriousCountStatic.Location = new Point(388, 197);
+            lblSeriousCountStatic.Name = "lblSeriousCountStatic";
+            lblSeriousCountStatic.Size = new Size(103, 20);
+            lblSeriousCountStatic.TabIndex = 28;
+            lblSeriousCountStatic.Text = "Serious Count:";
+            // 
+            // lblStableCountStatic
+            // 
+            lblStableCountStatic.AutoSize = true;
+            lblStableCountStatic.Font = new Font("Segoe UI", 11.25F);
+            lblStableCountStatic.Location = new Point(388, 157);
+            lblStableCountStatic.Name = "lblStableCountStatic";
+            lblStableCountStatic.Size = new Size(97, 20);
+            lblStableCountStatic.TabIndex = 27;
+            lblStableCountStatic.Text = "Stable Count:";
+            // 
+            // lblCriticalCountStatic
+            // 
+            lblCriticalCountStatic.AutoSize = true;
+            lblCriticalCountStatic.Font = new Font("Segoe UI", 11.25F);
+            lblCriticalCountStatic.Location = new Point(388, 119);
+            lblCriticalCountStatic.Name = "lblCriticalCountStatic";
+            lblCriticalCountStatic.Size = new Size(101, 20);
+            lblCriticalCountStatic.TabIndex = 26;
+            lblCriticalCountStatic.Text = "Critical Count:";
+            // 
+            // lblSummaryAverageScoreStatic
+            // 
+            lblSummaryAverageScoreStatic.AutoSize = true;
+            lblSummaryAverageScoreStatic.Font = new Font("Segoe UI", 11.25F);
+            lblSummaryAverageScoreStatic.Location = new Point(42, 197);
+            lblSummaryAverageScoreStatic.Name = "lblSummaryAverageScoreStatic";
+            lblSummaryAverageScoreStatic.Size = new Size(174, 20);
+            lblSummaryAverageScoreStatic.TabIndex = 25;
+            lblSummaryAverageScoreStatic.Text = "Summary Average Score:";
+            // 
+            // lblSummaryAvgAgeStatic
+            // 
+            lblSummaryAvgAgeStatic.AutoSize = true;
+            lblSummaryAvgAgeStatic.Font = new Font("Segoe UI", 11.25F);
+            lblSummaryAvgAgeStatic.Location = new Point(42, 157);
+            lblSummaryAvgAgeStatic.Name = "lblSummaryAvgAgeStatic";
+            lblSummaryAvgAgeStatic.Size = new Size(164, 20);
+            lblSummaryAvgAgeStatic.TabIndex = 24;
+            lblSummaryAvgAgeStatic.Text = "Summary Average Age:";
+            // 
+            // lblSummaryTotalStatic
+            // 
+            lblSummaryTotalStatic.AutoSize = true;
+            lblSummaryTotalStatic.Font = new Font("Segoe UI", 11.25F);
+            lblSummaryTotalStatic.Location = new Point(42, 116);
+            lblSummaryTotalStatic.Name = "lblSummaryTotalStatic";
+            lblSummaryTotalStatic.Size = new Size(111, 20);
+            lblSummaryTotalStatic.TabIndex = 23;
+            lblSummaryTotalStatic.Text = "Summary Total:";
+            // 
+            // lblStatusStatic
+            // 
+            lblStatusStatic.AutoSize = true;
+            lblStatusStatic.Font = new Font("Segoe UI", 11.25F);
+            lblStatusStatic.Location = new Point(20, 187);
+            lblStatusStatic.Name = "lblStatusStatic";
+            lblStatusStatic.Size = new Size(49, 20);
+            lblStatusStatic.TabIndex = 15;
+            lblStatusStatic.Text = "Status";
+            // 
+            // lblHousingStatic
+            // 
+            lblHousingStatic.AutoSize = true;
+            lblHousingStatic.Font = new Font("Segoe UI", 11.25F);
+            lblHousingStatic.Location = new Point(20, 218);
+            lblHousingStatic.Name = "lblHousingStatic";
+            lblHousingStatic.Size = new Size(64, 20);
+            lblHousingStatic.TabIndex = 16;
+            lblHousingStatic.Text = "Housing";
+            // 
+            // pictureBox1
+            // 
+            pictureBox1.Image = (Image)resources.GetObject("pictureBox1.Image");
+            pictureBox1.Location = new Point(275, 19);
+            pictureBox1.Name = "pictureBox1";
+            pictureBox1.Size = new Size(270, 218);
+            pictureBox1.SizeMode = PictureBoxSizeMode.StretchImage;
+            pictureBox1.TabIndex = 17;
+            pictureBox1.TabStop = false;
+            // 
             // Form1
             // 
             AutoScaleDimensions = new SizeF(9F, 23F);
@@ -377,6 +550,7 @@
             Name = "Form1";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Form1";
+            Load += Form1_Load;
             ((System.ComponentModel.ISupportInitialize)dgvAnimals).EndInit();
             grpAnimalDetails.ResumeLayout(false);
             grpAnimalDetails.PerformLayout();
@@ -384,6 +558,7 @@
             grpSearchActions.PerformLayout();
             grpSummaryReport.ResumeLayout(false);
             grpSummaryReport.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
             ResumeLayout(false);
         }
 
@@ -415,5 +590,21 @@
         private GroupBox grpAnimalDetails;
         private GroupBox grpSearchActions;
         private GroupBox grpSummaryReport;
+        private Label lblAgeStatic;
+        private Label lblSpeciesStatic;
+        private Label lblNameStatic;
+        private Label lblAnimalIDStatic;
+        private Label lblRecoveryScoreStatic;
+        private Label lblSummaryAvgAgeStatic;
+        private Label lblSummaryTotalStatic;
+        private Label lblSummaryAverageScoreStatic;
+        private Label lblReadyReleaseCount;
+        private Label lblRecoveringCountStatic;
+        private Label lblSeriousCountStatic;
+        private Label lblStableCountStatic;
+        private Label lblCriticalCountStatic;
+        private Label lblHousingStatic;
+        private Label lblStatusStatic;
+        private PictureBox pictureBox1;
     }
 }

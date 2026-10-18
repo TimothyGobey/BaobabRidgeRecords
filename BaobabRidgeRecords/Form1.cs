@@ -1,3 +1,4 @@
+
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -12,45 +13,71 @@ namespace BaobabRidgeRecords
         public Form1()
         {
             InitializeComponent();
-            LoadAnimalsFromFile();
         }
 
-        private void grpAnimalDetails_Enter(object sender, EventArgs e)
+
+
+
+
+        private void Form1_Load(object sender, EventArgs e)
         {
+            ConfigureDataGridView();
+            PopulateGrid();
+
+
+
+
 
         }
 
-        private void LoadAnimalsFromFile()
+
+        private void ConfigureDataGridView()
         {
-            string filePath = "animals.txt";
 
-            if (!File.Exists(filePath))
+
+
+            dgvAnimals.AutoGenerateColumns = false;
+            dgvAnimals.Columns.Clear();
+            dgvAnimals.ReadOnly = true;
+            dgvAnimals.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+            dgvAnimals.MultiSelect = false;
+            dgvAnimals.Columns.Add(new DataGridViewTextBoxColumn { DataPropertyName = "AnimalId", HeaderText = "Animal ID", Width = 90 });
+            dgvAnimals.Columns.Add(new DataGridViewTextBoxColumn { DataPropertyName = "Name", HeaderText = "Name", Width = 110 });
+            dgvAnimals.Columns.Add(new DataGridViewTextBoxColumn { DataPropertyName = "Species", HeaderText = "Species", Width = 130 });
+            dgvAnimals.Columns.Add(new DataGridViewTextBoxColumn { DataPropertyName = "Age", HeaderText = "Age", Width = 60 });
+            dgvAnimals.Columns.Add(new DataGridViewTextBoxColumn { DataPropertyName = "RecoveryScore", HeaderText = "Recovery Score", Width = 110 });
+            dgvAnimals.Columns.Add(new DataGridViewTextBoxColumn { DataPropertyName = "Status", HeaderText = "Status", Width = 110 });
+            dgvAnimals.Columns.Add(new DataGridViewTextBoxColumn { DataPropertyName = "HousingUnit", HeaderText = "Housing Unit", Width = 150 });
+
+
+
+        }
+
+
+        public void PopulateGrid()
+        {
+            try
             {
-                return;
+
+                DataHandler handler = new DataHandler();
+                List<Animal> animals = handler.ReadAnimals();
+                animalList = animals;
+
+                dgvAnimals.DataSource = null;
+                dgvAnimals.DataSource = animals;
             }
 
-            animalList.Clear();
-            string[] lines = File.ReadAllLines(filePath);
 
-            foreach (string line in lines)
+
+
+            catch (Exception ex)
             {
-                if (string.IsNullOrWhiteSpace(line)) continue;
-
-                string[] parts = line.Split('|');
-                if (parts.Length >= 7)
-                {
-                    string id = parts[0].Trim();
-                    string name = parts[1].Trim();
-                    string species = parts[2].Trim();
-                    int.TryParse(parts[3].Trim(), out int age);
-                    int.TryParse(parts[4].Trim(), out int score);
-                    string status = parts[5].Trim();
-                    string housing = parts[6].Trim();
-
-                    Animal animal = new Animal(id, name, species, age, score, status, housing);
-                    animalList.Add(animal);
-                }
+                MessageBox.Show($"Error loading data: {ex.Message}", "Data Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+
+       
+
+        
         }
 
         private void btnGenerateSummary_Click(object sender, EventArgs e)
@@ -220,6 +247,7 @@ namespace BaobabRidgeRecords
                     }
                 }
 
+            
                 try
                 {
                     System.IO.File.WriteAllLines(filePath, lines);
@@ -243,5 +271,7 @@ namespace BaobabRidgeRecords
                 }
             }
         }
+
+       
     }
 }
