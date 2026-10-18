@@ -53,6 +53,9 @@
             lblCountRecovering = new Label();
             lblCountReleaseReady = new Label();
             grpAnimalDetails = new GroupBox();
+            pictureBox1 = new PictureBox();
+            lblHousingStatic = new Label();
+            lblStatusStatic = new Label();
             lblRecoveryScoreStatic = new Label();
             lblAgeStatic = new Label();
             lblSpeciesStatic = new Label();
@@ -68,14 +71,11 @@
             lblSummaryAverageScoreStatic = new Label();
             lblSummaryAvgAgeStatic = new Label();
             lblSummaryTotalStatic = new Label();
-            lblStatusStatic = new Label();
-            lblHousingStatic = new Label();
-            pictureBox1 = new PictureBox();
             ((System.ComponentModel.ISupportInitialize)dgvAnimals).BeginInit();
             grpAnimalDetails.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             grpSearchActions.SuspendLayout();
             grpSummaryReport.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             SuspendLayout();
             // 
             // txtAnimalID
@@ -210,7 +210,7 @@
             dgvAnimals.ReadOnly = true;
             dgvAnimals.RowHeadersWidth = 51;
             dgvAnimals.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            dgvAnimals.Size = new Size(707, 194);
+            dgvAnimals.Size = new Size(707, 263);
             dgvAnimals.TabIndex = 13;
             // 
             // btnGenerateSummary
@@ -324,14 +324,44 @@
             grpAnimalDetails.Controls.Add(lblCalculatedHousing);
             grpAnimalDetails.Controls.Add(txtAge);
             grpAnimalDetails.Controls.Add(lblCalculatedStatus);
-            grpAnimalDetails.Location = new Point(33, 36);
+            grpAnimalDetails.Location = new Point(33, 24);
             grpAnimalDetails.Margin = new Padding(3, 5, 3, 5);
             grpAnimalDetails.Name = "grpAnimalDetails";
             grpAnimalDetails.Padding = new Padding(3, 5, 3, 5);
-            grpAnimalDetails.Size = new Size(726, 506);
+            grpAnimalDetails.Size = new Size(595, 518);
             grpAnimalDetails.TabIndex = 23;
             grpAnimalDetails.TabStop = false;
             grpAnimalDetails.Text = "Animal Details";
+            // 
+            // pictureBox1
+            // 
+            pictureBox1.Image = (Image)resources.GetObject("pictureBox1.Image");
+            pictureBox1.Location = new Point(275, 19);
+            pictureBox1.Name = "pictureBox1";
+            pictureBox1.Size = new Size(270, 218);
+            pictureBox1.SizeMode = PictureBoxSizeMode.StretchImage;
+            pictureBox1.TabIndex = 17;
+            pictureBox1.TabStop = false;
+            // 
+            // lblHousingStatic
+            // 
+            lblHousingStatic.AutoSize = true;
+            lblHousingStatic.Font = new Font("Segoe UI", 11.25F);
+            lblHousingStatic.Location = new Point(20, 218);
+            lblHousingStatic.Name = "lblHousingStatic";
+            lblHousingStatic.Size = new Size(64, 20);
+            lblHousingStatic.TabIndex = 16;
+            lblHousingStatic.Text = "Housing";
+            // 
+            // lblStatusStatic
+            // 
+            lblStatusStatic.AutoSize = true;
+            lblStatusStatic.Font = new Font("Segoe UI", 11.25F);
+            lblStatusStatic.Location = new Point(20, 187);
+            lblStatusStatic.Name = "lblStatusStatic";
+            lblStatusStatic.Size = new Size(49, 20);
+            lblStatusStatic.TabIndex = 15;
+            lblStatusStatic.Text = "Status";
             // 
             // lblRecoveryScoreStatic
             // 
@@ -389,9 +419,9 @@
             grpSearchActions.Controls.Add(txtSearchID);
             grpSearchActions.Controls.Add(btnSearch);
             grpSearchActions.Controls.Add(btnDelete);
-            grpSearchActions.Location = new Point(625, 24);
+            grpSearchActions.Location = new Point(634, 24);
             grpSearchActions.Name = "grpSearchActions";
-            grpSearchActions.Size = new Size(743, 330);
+            grpSearchActions.Size = new Size(734, 518);
             grpSearchActions.TabIndex = 10;
             grpSearchActions.TabStop = false;
             grpSearchActions.Text = "Search";
@@ -504,42 +534,12 @@
             lblSummaryTotalStatic.TabIndex = 23;
             lblSummaryTotalStatic.Text = "Summary Total:";
             // 
-            // lblStatusStatic
-            // 
-            lblStatusStatic.AutoSize = true;
-            lblStatusStatic.Font = new Font("Segoe UI", 11.25F);
-            lblStatusStatic.Location = new Point(20, 187);
-            lblStatusStatic.Name = "lblStatusStatic";
-            lblStatusStatic.Size = new Size(49, 20);
-            lblStatusStatic.TabIndex = 15;
-            lblStatusStatic.Text = "Status";
-            // 
-            // lblHousingStatic
-            // 
-            lblHousingStatic.AutoSize = true;
-            lblHousingStatic.Font = new Font("Segoe UI", 11.25F);
-            lblHousingStatic.Location = new Point(20, 218);
-            lblHousingStatic.Name = "lblHousingStatic";
-            lblHousingStatic.Size = new Size(64, 20);
-            lblHousingStatic.TabIndex = 16;
-            lblHousingStatic.Text = "Housing";
-            // 
-            // pictureBox1
-            // 
-            pictureBox1.Image = (Image)resources.GetObject("pictureBox1.Image");
-            pictureBox1.Location = new Point(275, 19);
-            pictureBox1.Name = "pictureBox1";
-            pictureBox1.Size = new Size(270, 218);
-            pictureBox1.SizeMode = PictureBoxSizeMode.StretchImage;
-            pictureBox1.TabIndex = 17;
-            pictureBox1.TabStop = false;
-            // 
             // Form1
             // 
-            AutoScaleDimensions = new SizeF(9F, 23F);
+            AutoScaleDimensions = new SizeF(8F, 19F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.WhiteSmoke;
-            ClientSize = new Size(1776, 1012);
+            ClientSize = new Size(1385, 812);
             Controls.Add(grpSummaryReport);
             Controls.Add(grpSearchActions);
             Controls.Add(grpAnimalDetails);
@@ -554,11 +554,11 @@
             ((System.ComponentModel.ISupportInitialize)dgvAnimals).EndInit();
             grpAnimalDetails.ResumeLayout(false);
             grpAnimalDetails.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
             grpSearchActions.ResumeLayout(false);
             grpSearchActions.PerformLayout();
             grpSummaryReport.ResumeLayout(false);
             grpSummaryReport.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
             ResumeLayout(false);
         }
 

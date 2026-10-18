@@ -1,54 +1,44 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Windows.Forms;
+
+
+
 
 namespace BaobabRidgeRecords
 {
+
+
     class DataHandler
     {
         private readonly string filePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "animals.txt");
 
-        
         public List<Animal> ReadAnimals()
         {
+
+
             List<Animal> animalList = new List<Animal>();
+
+
 
             if (!File.Exists(filePath))
             {
                 File.Create(filePath).Dispose();
-                return animalList; 
+                return animalList;
             }
-
-
-
-
-
 
             using (StreamReader reader = new StreamReader(filePath))
             {
-
-
-
                 string line;
                 while ((line = reader.ReadLine()) != null)
                 {
-
-
-
-
-
                     if (string.IsNullOrWhiteSpace(line)) continue;
 
                     string[] parts = line.Split('|');
 
-
-
-
-
-
                     if (parts.Length == 7)
                     {
-                        
                         string id = parts[0].Trim();
                         string name = parts[1].Trim();
                         string species = parts[2].Trim();
@@ -60,14 +50,147 @@ namespace BaobabRidgeRecords
                         Animal a = new Animal(id, name, species, age, score, status, housing);
                         animalList.Add(a);
                     }
+                }
+            }
+            return animalList;
+        }
+
+        public static bool DeleteAnimalRecord(List<Animal> animalList, Animal animalToDelete)
+        {
+            string filePath = System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "animals.txt");
+            List<string> lines = new List<string>();
+
+            // Build the remaining lines
+            foreach (Animal a in animalList)
+            {
+                if (a != animalToDelete)
+                {
+                    lines.Add($"{a.AnimalId}|{a.Name}|{a.Species}|{a.Age}|{a.RecoveryScore}|{a.Status}|{a.HousingUnit}");
+                }
+            }
+
+            try
+
+            {
+                System.IO.File.WriteAllLines(filePath, lines);
+                return true;
+            }
 
 
+
+            catch (UnauthorizedAccessException)
+            {
+                MessageBox.Show("You do not have permission to update animals.txt.", "Permission Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return false;
+            }
+            catch (System.IO.IOException)
+            {
+                MessageBox.Show("animals.txt is in use by another program or cannot be written.", "File Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return false;
+            }
+        }
+
+        public static bool ProcessSummaryReport(out int totalAnimals
+            , out string avgAgeDisplay
+            , out string avgScoreDisplay
+            , out int criticalCount
+            , out int seriousCount
+            , out int stableCount
+            , out int recoveringCount
+            , out int releaseReadyCount)
+        {
+
+
+
+            // Initialize outputs
+            totalAnimals = 0; 
+            criticalCount = 0; 
+            seriousCount = 0;
+            stableCount = 0;
+            recoveringCount = 0; 
+            releaseReadyCount = 0;
+            avgAgeDisplay = "N/A"; 
+            avgScoreDisplay = "N/A";
+
+            string filePath = System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "animals.txt");
+
+            string summaryPath = System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "summary.txt");
+            double totalAge = 0;
+            double totalScore = 0;
+
+            try
+            {
+                // Read and calculate
+                if (System.IO.File.Exists(filePath))
+                {
+                    string[] lines = System.IO.File.ReadAllLines(filePath);
+                    foreach (string line in lines)
+                    {
+                        if (string.IsNullOrWhiteSpace(line)) continue;
+                        string[] parts = line.Split('|');
+                        if (parts.Length == 7 && int.TryParse(parts[3].Trim(), out int age) && int.TryParse(parts[4].Trim(), out int score))
+                        {
+                            totalAnimals++;
+                            totalAge += age;
+                            totalScore += score;
+
+                            string status = parts[5].Trim();
+                            if (status == "Critical") criticalCount++;
+                            else if (status == "Serious") seriousCount++;
+                            else if (status == "Stable") stableCount++;
+                            else if (status == "Recovering") recoveringCount++;
+                            else if (status == "Release-Ready") releaseReadyCount++;
+                        }
+                    }
                 }
 
 
 
+
+
+                // Format averages
+                if (totalAnimals > 0)
+                {
+                    avgAgeDisplay = (totalAge / totalAnimals).ToString("F2", System.Globalization.CultureInfo.InvariantCulture);
+                    avgScoreDisplay = (totalScore / totalAnimals).ToString("F2", System.Globalization.CultureInfo.InvariantCulture);
+                }
+
+
+
+
+
+
+                // Write summary file
+                using (System.IO.StreamWriter writer = new System.IO.StreamWriter(summaryPath, false))
+                {
+                    string timestamp = DateTime.Now.ToString("yyyy-MM-dd HH:mm");
+                    writer.WriteLine("BAOBAB RIDGE WILDLIFE REHABILITATION CENTRE");
+                    writer.WriteLine("ANIMAL SUMMARY REPORT");
+                    writer.WriteLine($"Generated: {timestamp}");
+                    writer.WriteLine("----------------------------------------");
+                    writer.WriteLine($"Total animals:          {totalAnimals}");
+                    writer.WriteLine($"Average age (years):    {avgAgeDisplay}");
+                    writer.WriteLine($"Average recovery score: {avgScoreDisplay}");
+                    writer.WriteLine("----------------------------------------");
+                    writer.WriteLine("Animals per status:");
+                    writer.WriteLine($"  Critical:             {criticalCount}");
+                    writer.WriteLine($"  Serious:              {seriousCount}");
+                    writer.WriteLine($"  Stable:               {stableCount}");
+                    writer.WriteLine($"  Recovering:           {recoveringCount}");
+                    writer.WriteLine($"  Release-Ready:        {releaseReadyCount}");
+                }
+                return true;
             }
-            return animalList; 
+
+
+
+            catch (Exception ex) 
+            when 
+            (ex is UnauthorizedAccessException || ex is IOException)
+            {
+                MessageBox.Show("File access error. Make sure the files are not open in another program.");
+                return false;
+            }
         }
     }
 }
