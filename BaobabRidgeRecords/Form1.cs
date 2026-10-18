@@ -9,9 +9,14 @@ namespace BaobabRidgeRecords
     {
         private List<Animal> animalList = new List<Animal>();
 
+        //Stores the record currently selected for editing
+        private Animal selectedAnimal;
         public Form1()
         {
             InitializeComponent();
+
+            //Loads a selected grid row into edit mode
+            dgvAnimals.CellClick += dgvAnimals_CellClick;
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -123,6 +128,36 @@ namespace BaobabRidgeRecords
                     MessageBox.Show("Animal record deleted successfully.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
             }
+        }
+        private void dgvAnimals_CellClick(object sender, DataGridViewCellEventArgs e) 
+        {
+            //Ignore clicks on the column headings
+            if (e.RowIndex < 0)
+            {
+                return;                
+            }
+
+            //Gets the Animal object behind the selected row
+            selectedAnimal = dgvAnimals.Rows[e.RowIndex].DataBoundItem as Animal;
+
+            if (selectedAnimal == null) 
+            {
+                return;
+            }
+
+            //Shows the selected record in the form for editing
+            txtAnimalID.Text = selectedAnimal.AnimalId;
+            txtName.Text = selectedAnimal.Name;
+            txtSpecies.Text = selectedAnimal.Species;
+            txtAge.Text = selectedAnimal.Age.ToString();
+            txtRecoveryScore.Text = selectedAnimal.RecoveryScore.ToString();
+            lblCalculatedStatus.Text = selectedAnimal.Status;
+            lblCalculatedHousing.Text = selectedAnimal.HousingUnit;
+
+            //The ID stays fixed while the user edits the record
+            txtAnimalID.ReadOnly = true;
+            btnAdd.Enabled = false;
+            btnSave.Enabled = true;
         }
     }
 }
