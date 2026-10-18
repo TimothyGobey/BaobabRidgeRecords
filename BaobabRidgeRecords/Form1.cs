@@ -152,15 +152,15 @@ namespace BaobabRidgeRecords
                 avgScoreDisplay = "N/A";
             }
 
-            lblSummaryTotal.Text = $"Total Animals: {totalAnimals}";
-            lblSummaryAvgAge.Text = $"Avg Age: {avgAgeDisplay}";
-            lblSummaryAvgScore.Text = $"Avg Score: {avgScoreDisplay}";
+            lblSummaryTotal.Text = totalAnimals.ToString();
+            lblSummaryAvgAge.Text = avgAgeDisplay;
+            lblSummaryAvgScore.Text = avgScoreDisplay;
 
-            lblCountCritical.Text = $"Critical: {criticalCount}";
-            lblCountSerious.Text = $"Serious: {seriousCount}";
-            lblCountStable.Text = $"Stable: {stableCount}";
-            lblCountRecovering.Text = $"Recovering: {recoveringCount}";
-            lblCountReleaseReady.Text = $"Release-Ready: {releaseReadyCount}";
+            lblCountCritical.Text = criticalCount.ToString();
+            lblCountSerious.Text = seriousCount.ToString();
+            lblCountStable.Text = stableCount.ToString();
+            lblCountRecovering.Text = recoveringCount.ToString();
+            lblCountReleaseReady.Text = releaseReadyCount.ToString();
 
             string timestamp = DateTime.Now.ToString("yyyy-MM-dd HH:mm");
 
