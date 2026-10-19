@@ -18,6 +18,9 @@ namespace BaobabRidgeRecords
 
             //Loads a selected grid row into edit mode
             dgvAnimals.CellClick += dgvAnimals_CellClick;
+
+            //Runs the update process when Save Changes is clicked
+            btnSave.Click += btnSave_Click;
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -163,8 +166,16 @@ namespace BaobabRidgeRecords
             txtSpecies.Clear();
             txtAge.Clear();
             txtRecoveryScore.Clear();
+
             lblCalculatedStatus.Text = "[---]";
             lblCalculatedHousing.Text = "[---]";
+
+            selectedAnimal = null;
+            txtAnimalID.ReadOnly = false;
+            btnAdd.Enabled = true;
+            btnSave.Enabled = false;
+
+            dgvAnimals.ClearSelection();
             txtAnimalID.Focus();
         }
 
@@ -274,6 +285,54 @@ namespace BaobabRidgeRecords
             txtAnimalID.ReadOnly = true;
             btnAdd.Enabled = false;
             btnSave.Enabled = true;
+        }
+
+        private void btnSave_Click(object sender, EventArgs e)
+        {
+            if (selectedAnimal == null)
+            {
+                MessageBox.Show("Please select an animal from the grid to update.",
+                    "Selection Required", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            if (!ValidateAnimal(out Animal updatedAnimal, out string errorMessage, out TextBox invalidField))
+            {
+                MessageBox.Show(errorMessage, "Invalid Animal Details",
+                    MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                invalidField.Focus();
+                invalidField.SelectAll();
+                return;
+            }
+
+            try
+            {
+                DataHandler handler = new DataHandler();
+
+                if (!handler.UpdateAnimal(updatedAnimal))
+                {
+                    MessageBox.Show("The animal record could not be found.",
+                        "Update Failed", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+
+                PopulateGrid();
+                ClearAnimalInputs();
+
+                MessageBox.Show(
+                    $"Animal updated successfully.\n\nStatus: {updatedAnimal.Status}\nHousing Unit: {updatedAnimal.HousingUnit}",
+                    "Update Complete", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            catch (UnauthorizedAccessException)
+            {
+                MessageBox.Show("You do not have permission to update animals.txt.",
+                    "Update Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            catch (IOException)
+            {
+                MessageBox.Show("animals.txt is unavailable or open in another program.",
+                    "Update Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
     }
 }
