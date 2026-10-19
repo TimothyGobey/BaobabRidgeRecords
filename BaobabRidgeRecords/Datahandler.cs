@@ -8,9 +8,8 @@ using System.Windows.Forms;
 
 namespace BaobabRidgeRecords
 {
+    public class DataHandler
 
-
-    class DataHandler
     {
         private readonly string filePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "animals.txt");
 
@@ -249,6 +248,44 @@ namespace BaobabRidgeRecords
                 MessageBox.Show("File access error. Make sure the files are not open in another program.");
                 return false;
             }
+        }
+
+        public bool UpdateAnimal(Animal updatedAnimal) 
+        {
+            //Prevents the program from attempting to update a missing animal
+            if (updatedAnimal == null)
+            {
+                throw new ArgumentNullException(nameof(updatedAnimal)); 
+            }
+
+            //Reads the current records before making any changes
+            List<Animal> animals = ReadAnimals();
+
+            //Locates the original record by its unique Animal ID
+            int animalIndex = animals.FindIndex(a =>
+                string.Equals(a.AnimalId, updatedAnimal.AnimalId,
+                StringComparison.OrdinalIgnoreCase));
+
+            //Stops the update if the selected ID does not exist in the file
+            if (animalIndex == -1)
+            {
+                return false;
+            }
+
+            //Replaces the old record with the edited record
+            animals[animalIndex] = updatedAnimal;
+
+            List<string> lines = new List<string>();
+
+            //Converts each animal back to the pipe-seperated format used in animals.txt
+            foreach (Animal animal in animals)
+            {
+                lines.Add(animal.ToFileString()); 
+            }
+
+            //Rewrite the file so it contains the edited record
+            File.WriteAllLines(filePath, lines);
+            return true;
         }
     }
 }

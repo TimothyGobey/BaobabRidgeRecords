@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.13.35931.197 d17.13
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BaobabRidgeRecords", "BaobabRidgeRecords.csproj", "{AB9F053A-DD9D-76CB-1123-69BDD5552768}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{AB9F053A-DD9D-76CB-1123-69BDD5552768}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AB9F053A-DD9D-76CB-1123-69BDD5552768}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AB9F053A-DD9D-76CB-1123-69BDD5552768}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AB9F053A-DD9D-76CB-1123-69BDD5552768}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {F05FD18D-7444-4C39-8455-EA207D20307E}
+	EndGlobalSection
+EndGlobal
