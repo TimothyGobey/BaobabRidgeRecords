@@ -21,12 +21,13 @@ namespace BaobabRidgeRecords
 
             //Runs the update process when Save Changes is clicked
             btnSave.Click += btnSave_Click;
+            btnSearch.Click += btnSearch_Click;
         }
 
         private void Form1_Load(object sender, EventArgs e)
         {
             ConfigureDataGridView();
-            PopulateGrid();
+            PopulateGrid(true);  
         }
 
         private void ConfigureDataGridView()
@@ -45,12 +46,12 @@ namespace BaobabRidgeRecords
             dgvAnimals.Columns.Add(new DataGridViewTextBoxColumn { DataPropertyName = "HousingUnit", HeaderText = "Housing Unit", Width = 150 });
         }
 
-        public void PopulateGrid()
+        public void PopulateGrid(bool showWarning = false)
         {
             try
             {
                 DataHandler handler = new DataHandler();
-                List<Animal> animals = handler.ReadAnimals();
+                List<Animal> animals = handler.ReadAnimals(showWarning);
                 animalList = animals;
 
                 dgvAnimals.DataSource = null;
@@ -245,13 +246,17 @@ namespace BaobabRidgeRecords
             {
                 // 4. Pass heavy lifting to the DataHandler
                 bool success = DataHandler.DeleteAnimalRecord(animalList, animalToDelete);
-
+                ClearAnimalInputs();
                 if (success)
                 {
                     // Update UI grid
                     animalList.Remove(animalToDelete);
                     dgvAnimals.DataSource = null;
                     dgvAnimals.DataSource = animalList;
+
+                   
+                    ClearAnimalInputs();
+
                     MessageBox.Show("Animal record deleted successfully.", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
             }
@@ -261,18 +266,28 @@ namespace BaobabRidgeRecords
             //Ignore clicks on the column headings
             if (e.RowIndex < 0)
             {
-                return;                
+                return;
             }
 
             //Gets the Animal object behind the selected row
-            selectedAnimal = dgvAnimals.Rows[e.RowIndex].DataBoundItem as Animal;
+            Animal clickedAnimal = dgvAnimals.Rows[e.RowIndex].DataBoundItem as Animal;
 
-            if (selectedAnimal == null) 
+            if (clickedAnimal == null)
             {
                 return;
             }
 
-            //Shows the selected record in the form for editing
+            // Use the shared helper to load the form
+            LoadAnimalIntoEditMode(clickedAnimal);
+        }
+
+
+
+
+        // Loads an animal's details into the form controls and activates edit mode.
+        private void LoadAnimalIntoEditMode(Animal animal)
+        {
+            selectedAnimal = animal;
             txtAnimalID.Text = selectedAnimal.AnimalId;
             txtName.Text = selectedAnimal.Name;
             txtSpecies.Text = selectedAnimal.Species;
@@ -286,6 +301,34 @@ namespace BaobabRidgeRecords
             btnAdd.Enabled = false;
             btnSave.Enabled = true;
         }
+
+        // Searches for an animal by exact ID (case-insensitive) and loads it for editing.
+        private void btnSearch_Click(object sender, EventArgs e)
+        {
+            string searchId = txtSearchID.Text.Trim();
+            if (string.IsNullOrEmpty(searchId))
+            {
+                MessageBox.Show("Please enter an Animal ID to search.", "Search Required", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            for (int i = 0; i < animalList.Count; i++)
+            {
+                if (string.Equals(animalList[i].AnimalId, searchId, StringComparison.OrdinalIgnoreCase))
+                {
+                    // Select the row in the grid and load the data
+                    dgvAnimals.ClearSelection();
+                    dgvAnimals.Rows[i].Selected = true;
+                    dgvAnimals.CurrentCell = dgvAnimals.Rows[i].Cells[0];
+                    LoadAnimalIntoEditMode(animalList[i]);
+                    return;
+                }
+            }
+
+            // If the loop finishes without finding the ID
+            MessageBox.Show($"No animal found with ID: {searchId}", "Not Found", MessageBoxButtons.OK, MessageBoxIcon.Information);
+        }
+
 
         private void btnSave_Click(object sender, EventArgs e)
         {

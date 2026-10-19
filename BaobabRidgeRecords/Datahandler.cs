@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Windows.Forms;
-
+using System.Text.RegularExpressions;
 
 
 
@@ -71,13 +71,11 @@ namespace BaobabRidgeRecords
             }
         }
 
-        public List<Animal> ReadAnimals()
+        // Reads all valid animal records from animals.txt and skips malformed lines.
+        public List<Animal> ReadAnimals(bool showWarning = false)
         {
-
-
             List<Animal> animalList = new List<Animal>();
-
-
+            int skippedLines = 0;
 
             if (!File.Exists(filePath))
             {
@@ -96,19 +94,41 @@ namespace BaobabRidgeRecords
 
                     if (parts.Length == 7)
                     {
-                        string id = parts[0].Trim();
+                        string id = parts[0].Trim().ToUpperInvariant();
                         string name = parts[1].Trim();
                         string species = parts[2].Trim();
-                        int.TryParse(parts[3].Trim(), out int age);
-                        int.TryParse(parts[4].Trim(), out int score);
-                        string status = parts[5].Trim();
-                        string housing = parts[6].Trim();
 
-                        Animal a = new Animal(id, name, species, age, score, status, housing);
-                        animalList.Add(a);
+                        bool validAge = int.TryParse(parts[3].Trim(), out int age) && age >= 0 && age <= 100;
+                        bool validScore = int.TryParse(parts[4].Trim(), out int score) && score >= 0 && score <= 100;
+                        bool validId = Regex.IsMatch(id, "^WR-[0-9]{4}$");
+
+                        // If everything is perfectly valid, add it. Otherwise, skip it.
+                        if (validId && name.Length >= 1 && species.Length >= 1 && validAge && validScore)
+                        {
+                            string status = parts[5].Trim();
+                            string housing = parts[6].Trim();
+                            Animal a = new Animal(id, name, species, age, score, status, housing);
+                            animalList.Add(a);
+                        }
+                        else
+                        {
+                            skippedLines++;
+                        }
+                    }
+                    else
+                    {
+                        skippedLines++;
                     }
                 }
             }
+
+            // Only show the warning if requested and if bad lines were actually found
+            if (showWarning && skippedLines > 0)
+            {
+                MessageBox.Show($"{skippedLines} malformed line(s) in animals.txt were skipped.",
+                    "Data Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+
             return animalList;
         }
 
