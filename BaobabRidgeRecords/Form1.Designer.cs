@@ -117,6 +117,7 @@
             txtRecoveryScore.Name = "txtRecoveryScore";
             txtRecoveryScore.Size = new Size(100, 27);
             txtRecoveryScore.TabIndex = 4;
+            txtRecoveryScore.TextChanged += txtRecoveryScore_TextChanged;
             // 
             // lblCalculatedStatus
             // 
@@ -132,7 +133,7 @@
             // 
             lblCalculatedHousing.AutoSize = true;
             lblCalculatedHousing.Font = new Font("Bookman Old Style", 11.25F);
-            lblCalculatedHousing.Location = new Point(156, 218);
+            lblCalculatedHousing.Location = new Point(156, 238);
             lblCalculatedHousing.Name = "lblCalculatedHousing";
             lblCalculatedHousing.Size = new Size(37, 19);
             lblCalculatedHousing.TabIndex = 6;
@@ -147,6 +148,7 @@
             btnAdd.TabIndex = 7;
             btnAdd.Text = "Add Animal";
             btnAdd.UseVisualStyleBackColor = false;
+            btnAdd.Click += btnAdd_Click;
             // 
             // btnSave
             // 
@@ -170,6 +172,7 @@
             btnClear.TabIndex = 9;
             btnClear.Text = "Clear Form";
             btnClear.UseVisualStyleBackColor = false;
+            btnClear.Click += btnClear_Click;
             // 
             // txtSearchID
             // 
@@ -347,7 +350,7 @@
             // 
             lblHousingStatic.AutoSize = true;
             lblHousingStatic.Font = new Font("Segoe UI", 11.25F);
-            lblHousingStatic.Location = new Point(20, 218);
+            lblHousingStatic.Location = new Point(20, 238);
             lblHousingStatic.Name = "lblHousingStatic";
             lblHousingStatic.Size = new Size(64, 20);
             lblHousingStatic.TabIndex = 16;

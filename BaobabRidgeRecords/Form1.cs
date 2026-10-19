@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Text.RegularExpressions;
 using System.Windows.Forms;
 
 namespace BaobabRidgeRecords
@@ -51,6 +52,121 @@ namespace BaobabRidgeRecords
             {
                 MessageBox.Show($"Error loading data: {ex.Message}", "Data Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+        }
+
+        // Checks the input fields before creating a new animal.
+        private bool ValidateAnimal(out Animal animal, out string errorMessage, out TextBox invalidField)
+        {
+            animal = new Animal();
+            errorMessage = string.Empty;
+            invalidField = txtAnimalID;
+
+            txtAnimalID.Text = txtAnimalID.Text.Trim().ToUpperInvariant();
+            txtName.Text = txtName.Text.Trim();
+            txtSpecies.Text = txtSpecies.Text.Trim();
+            txtAge.Text = txtAge.Text.Trim();
+            txtRecoveryScore.Text = txtRecoveryScore.Text.Trim();
+
+            if (!Regex.IsMatch(txtAnimalID.Text, "^WR-[0-9]{4}$"))
+            {
+                errorMessage = "Animal ID must be WR- followed by exactly four digits, for example WR-0009.";
+                return false;
+            }
+
+            if (txtName.Text.Length < 1 || txtName.Text.Length > 30 ||
+                txtName.Text.Contains('|') || txtName.Text.Contains('\r') || txtName.Text.Contains('\n'))
+            {
+                invalidField = txtName;
+                errorMessage = "Name must contain 1 to 30 characters and cannot contain | or a line break.";
+                return false;
+            }
+
+            if (txtSpecies.Text.Length < 1 || txtSpecies.Text.Length > 30 ||
+                txtSpecies.Text.Contains('|') || txtSpecies.Text.Contains('\r') || txtSpecies.Text.Contains('\n'))
+            {
+                invalidField = txtSpecies;
+                errorMessage = "Species must contain 1 to 30 characters and cannot contain | or a line break.";
+                return false;
+            }
+
+            if (!int.TryParse(txtAge.Text, out int age) || age < 0 || age > 100)
+            {
+                invalidField = txtAge;
+                errorMessage = "Age must be a whole number between 0 and 100.";
+                return false;
+            }
+
+            if (!int.TryParse(txtRecoveryScore.Text, out int recoveryScore) || recoveryScore < 0 || recoveryScore > 100)
+            {
+                invalidField = txtRecoveryScore;
+                errorMessage = "Recovery Score must be a whole number between 0 and 100.";
+                return false;
+            }
+
+            Animal.CalculateStatusAndHousing(recoveryScore, out string status, out string housingUnit);
+            animal = new Animal(txtAnimalID.Text, txtName.Text, txtSpecies.Text, age, recoveryScore, status, housingUnit);
+            return true;
+        }
+
+        // Adds a valid animal to the file, then refreshes the grid for the next entry.
+        private void btnAdd_Click(object sender, EventArgs e)
+        {
+            if (!ValidateAnimal(out Animal animal, out string errorMessage, out TextBox invalidField))
+            {
+                MessageBox.Show(errorMessage, "Invalid Animal Details", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                invalidField.Focus();
+                invalidField.SelectAll();
+                return;
+            }
+
+            DataHandler handler = new DataHandler();
+            if (!handler.AddAnimalRecord(animal, out errorMessage))
+            {
+                MessageBox.Show(errorMessage, "Add Animal Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                txtAnimalID.Focus();
+                txtAnimalID.SelectAll();
+                return;
+            }
+
+            PopulateGrid();
+            MessageBox.Show($"Animal added successfully.\n\nStatus: {animal.Status}\nHousing Unit: {animal.HousingUnit}",
+                "Animal Added", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            ClearAnimalInputs();
+        }
+
+        // Shows the calculated details while a valid recovery score is entered.
+        private void txtRecoveryScore_TextChanged(object sender, EventArgs e)
+        {
+            if (int.TryParse(txtRecoveryScore.Text.Trim(), out int recoveryScore) && recoveryScore >= 0 && recoveryScore <= 100)
+            {
+                Animal.CalculateStatusAndHousing(recoveryScore, out string status, out string housingUnit);
+                lblCalculatedStatus.Text = status;
+                lblCalculatedHousing.Text = housingUnit;
+            }
+            else
+            {
+                lblCalculatedStatus.Text = "[---]";
+                lblCalculatedHousing.Text = "[---]";
+            }
+        }
+
+        // Empties the animal inputs so another record can be entered.
+        private void ClearAnimalInputs()
+        {
+            txtAnimalID.Clear();
+            txtName.Clear();
+            txtSpecies.Clear();
+            txtAge.Clear();
+            txtRecoveryScore.Clear();
+            lblCalculatedStatus.Text = "[---]";
+            lblCalculatedHousing.Text = "[---]";
+            txtAnimalID.Focus();
+        }
+
+        // Clears an unfinished Add entry.
+        private void btnClear_Click(object sender, EventArgs e)
+        {
+            ClearAnimalInputs();
         }
 
         private void btnGenerateSummary_Click(object sender, EventArgs e)

@@ -14,6 +14,64 @@ namespace BaobabRidgeRecords
     {
         private readonly string filePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "animals.txt");
 
+        // Checks the file for an existing ID and appends the new animal record.
+        public bool AddAnimalRecord(Animal animal, out string errorMessage)
+        {
+            errorMessage = string.Empty;
+
+            try
+            {
+                using (FileStream stream = new FileStream(filePath, FileMode.OpenOrCreate, FileAccess.ReadWrite, FileShare.None))
+                {
+                    bool hasLines = false;
+                    using (StreamReader reader = new StreamReader(stream, System.Text.Encoding.UTF8, true, 1024, true))
+                    {
+                        string? line;
+                        while ((line = reader.ReadLine()) != null)
+                        {
+                            hasLines = true;
+                            string[] fields = line.Split('|');
+                            if (string.Equals(fields[0].Trim(), animal.AnimalId.Trim(), StringComparison.OrdinalIgnoreCase))
+                            {
+                                errorMessage = "Animal ID already exists. Please use a different Animal ID.";
+                                return false;
+                            }
+                        }
+                    }
+
+                    bool needsNewLine = false;
+                    if (hasLines && stream.Length > 0)
+                    {
+                        stream.Seek(-1, SeekOrigin.End);
+                        int lastCharacter = stream.ReadByte();
+                        needsNewLine = lastCharacter != '\n' && lastCharacter != '\r';
+                    }
+
+                    stream.Seek(0, SeekOrigin.End);
+                    using (StreamWriter writer = new StreamWriter(stream, new System.Text.UTF8Encoding(false)))
+                    {
+                        // Separate the new record if the previous line has no line ending.
+                        if (needsNewLine)
+                        {
+                            writer.WriteLine();
+                        }
+                        writer.WriteLine(animal.ToFileString());
+                    }
+                }
+                return true;
+            }
+            catch (UnauthorizedAccessException)
+            {
+                errorMessage = "You do not have permission to add an animal to animals.txt. Check that the file is not read-only.";
+                return false;
+            }
+            catch (IOException)
+            {
+                errorMessage = "The animal could not be added. Make sure animals.txt is available and is not in use by another program.";
+                return false;
+            }
+        }
+
         public List<Animal> ReadAnimals()
         {
 
