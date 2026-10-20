@@ -71,6 +71,15 @@ namespace BaobabRidgeRecords
             }
         }
 
+
+
+
+
+
+
+
+
+
         // Reads all valid animal records from animals.txt and skips malformed lines.
         public List<Animal> ReadAnimals(bool showWarning = false)
         {
@@ -102,7 +111,7 @@ namespace BaobabRidgeRecords
                         bool validScore = int.TryParse(parts[4].Trim(), out int score) && score >= 0 && score <= 100;
                         bool validId = Regex.IsMatch(id, "^WR-[0-9]{4}$");
 
-                        // If everything is perfectly valid, add it. Otherwise, skip it.
+                        // If everything is perfectly valid add it. Otherwise  skip it.
                         if (validId && name.Length >= 1 && species.Length >= 1 && validAge && validScore)
                         {
                             string status = parts[5].Trim();
@@ -132,6 +141,17 @@ namespace BaobabRidgeRecords
             return animalList;
         }
 
+
+
+
+
+
+
+
+
+
+
+        // Removes a specific animal from the list and overwrites animals.txt with the remaining records.
         public static bool DeleteAnimalRecord(List<Animal> animalList, Animal animalToDelete)
         {
             string filePath = System.IO.Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "animals.txt");
@@ -167,6 +187,19 @@ namespace BaobabRidgeRecords
             }
         }
 
+
+
+
+
+
+
+
+
+
+
+
+
+        // Calculates total animals, averages, and status counts, then formats and writes them to summary.txt.
         public static bool ProcessSummaryReport(out int totalAnimals
             , out string avgAgeDisplay
             , out string avgScoreDisplay
@@ -270,6 +303,16 @@ namespace BaobabRidgeRecords
             }
         }
 
+
+
+
+
+
+
+
+
+
+        // Locates an existing animal by ID, replaces it with the updated details, and saves the changes to the file.
         public bool UpdateAnimal(Animal updatedAnimal) 
         {
             //Prevents the program from attempting to update a missing animal

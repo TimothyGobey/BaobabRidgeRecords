@@ -12,6 +12,11 @@ namespace BaobabRidgeRecords
 
         //Stores the record currently selected for editing
         private Animal selectedAnimal;
+
+
+
+
+        // Initializes the main form and wires up the click events for the grid and buttons.
         public Form1()
         {
             InitializeComponent();
@@ -24,12 +29,25 @@ namespace BaobabRidgeRecords
             btnSearch.Click += btnSearch_Click;
         }
 
+
+
+
+
+
+
+        // Triggers when the application starts to set up the grid columns and load the initial data.
         private void Form1_Load(object sender, EventArgs e)
         {
             ConfigureDataGridView();
             PopulateGrid(true);  
         }
 
+
+
+
+
+
+        // Configures the DataGridView columns, headers, and widths to match the Animal object properties.
         private void ConfigureDataGridView()
         {
             dgvAnimals.AutoGenerateColumns = false;
@@ -46,6 +64,14 @@ namespace BaobabRidgeRecords
             dgvAnimals.Columns.Add(new DataGridViewTextBoxColumn { DataPropertyName = "HousingUnit", HeaderText = "Housing Unit", Width = 150 });
         }
 
+
+
+
+
+
+
+        // Retrieves the latest list of animals from the file and refreshes the data grid.
+        // Retrieves the latest list of animals from the file and refreshes the data grid.
         public void PopulateGrid(bool showWarning = false)
         {
             try
@@ -57,11 +83,27 @@ namespace BaobabRidgeRecords
                 dgvAnimals.DataSource = null;
                 dgvAnimals.DataSource = animals;
             }
+            catch (UnauthorizedAccessException)
+            {
+                MessageBox.Show("You do not have permission to read animals.txt.", "Permission Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            catch (IOException)
+            {
+                MessageBox.Show("animals.txt is currently in use by another program and cannot be loaded.", "File Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
             catch (Exception ex)
             {
                 MessageBox.Show($"Error loading data: {ex.Message}", "Data Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
+
+
+
+
+
+
+
+
 
         // Checks the input fields before creating a new animal.
         private bool ValidateAnimal(out Animal animal, out string errorMessage, out TextBox invalidField)
@@ -117,6 +159,14 @@ namespace BaobabRidgeRecords
             return true;
         }
 
+
+
+
+
+
+
+
+
         // Adds a valid animal to the file, then refreshes the grid for the next entry.
         private void btnAdd_Click(object sender, EventArgs e)
         {
@@ -143,6 +193,15 @@ namespace BaobabRidgeRecords
             ClearAnimalInputs();
         }
 
+
+
+
+
+
+
+
+
+
         // Shows the calculated details while a valid recovery score is entered.
         private void txtRecoveryScore_TextChanged(object sender, EventArgs e)
         {
@@ -158,6 +217,13 @@ namespace BaobabRidgeRecords
                 lblCalculatedHousing.Text = "[---]";
             }
         }
+
+
+
+
+
+
+
 
         // Empties the animal inputs so another record can be entered.
         private void ClearAnimalInputs()
@@ -180,12 +246,27 @@ namespace BaobabRidgeRecords
             txtAnimalID.Focus();
         }
 
+
+
+
+
+
+
+
+
         // Clears an unfinished Add entry.
         private void btnClear_Click(object sender, EventArgs e)
         {
             ClearAnimalInputs();
         }
 
+
+
+
+
+
+
+        // Triggers the data handler to process the summary math, write the text file, and update the UI labels.
         private void btnGenerateSummary_Click(object sender, EventArgs e)
         {
             // Let DataHandler process the files and math, and hand back the numbers
@@ -209,6 +290,13 @@ namespace BaobabRidgeRecords
             }
         }
 
+
+
+
+
+
+
+        // Checks if an animal is selected, asks the user for confirmation, and deletes the record.
         private void btnDelete_Click(object sender, EventArgs e)
         {
             // 1. UI Check
@@ -261,6 +349,16 @@ namespace BaobabRidgeRecords
                 }
             }
         }
+
+
+
+
+
+
+
+
+
+        // Captures the animal object from the clicked grid row so it can be loaded for editing.
         private void dgvAnimals_CellClick(object sender, DataGridViewCellEventArgs e) 
         {
             //Ignore clicks on the column headings
@@ -284,6 +382,14 @@ namespace BaobabRidgeRecords
 
 
 
+        
+        
+        
+        
+        
+        
+        
+        
         // Loads an animal's details into the form controls and activates edit mode.
         private void LoadAnimalIntoEditMode(Animal animal)
         {
@@ -302,6 +408,15 @@ namespace BaobabRidgeRecords
             btnSave.Enabled = true;
         }
 
+        
+        
+        
+        
+        
+        
+        
+        
+        
         // Searches for an animal by exact ID (case-insensitive) and loads it for editing.
         private void btnSearch_Click(object sender, EventArgs e)
         {
@@ -325,11 +440,20 @@ namespace BaobabRidgeRecords
                 }
             }
 
+           
             // If the loop finishes without finding the ID
             MessageBox.Show($"No animal found with ID: {searchId}", "Not Found", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
 
+
+
+
+
+
+
+
+        // Validates the edited inputs and overwrites the existing animal record in the data file.
         private void btnSave_Click(object sender, EventArgs e)
         {
             if (selectedAnimal == null)

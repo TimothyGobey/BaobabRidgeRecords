@@ -1,6 +1,6 @@
 ﻿namespace BaobabRidgeRecords
 {
-    public class Animal
+    public class Animal 
     {
         public string AnimalId { get; set; } = string.Empty;
         public string Name { get; set; } = string.Empty;
@@ -10,13 +10,26 @@
         public string Status { get; set; } = string.Empty;
         public string HousingUnit { get; set; } = string.Empty;
 
+
+
+
+
+
+
+        // Default empty constructor used for basic object initialization.
         public Animal() 
-        
-        { 
-        
-        
+        {
+
         }
 
+
+
+
+
+
+
+
+        // Creates a complete animal record by assigning all passed values to the object's properties.
         public Animal(string animalId, string name, string species, int age, int recoveryScore, string status, string housingUnit)
         {
 
@@ -31,6 +44,9 @@
         }
 
     
+
+
+
 
 
 
@@ -70,6 +86,12 @@
             }
         }
 
+
+
+
+
+
+        // Formats the animal's details into a pipe-delimited string so it can be saved to animals.txt.
         public string ToFileString()
         {
            

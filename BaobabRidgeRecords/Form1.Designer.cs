@@ -142,7 +142,7 @@
             // btnAdd
             // 
             btnAdd.Font = new Font("Segoe UI", 11.25F);
-            btnAdd.Location = new Point(20, 266);
+            btnAdd.Location = new Point(20, 303);
             btnAdd.Name = "btnAdd";
             btnAdd.Size = new Size(163, 33);
             btnAdd.TabIndex = 7;
@@ -156,7 +156,7 @@
             btnSave.Cursor = Cursors.Hand;
             btnSave.Enabled = false;
             btnSave.Font = new Font("Segoe UI", 11.25F);
-            btnSave.Location = new Point(217, 266);
+            btnSave.Location = new Point(216, 303);
             btnSave.Name = "btnSave";
             btnSave.Size = new Size(140, 33);
             btnSave.TabIndex = 8;
@@ -166,7 +166,7 @@
             // btnClear
             // 
             btnClear.Font = new Font("Segoe UI", 11.25F);
-            btnClear.Location = new Point(388, 266);
+            btnClear.Location = new Point(388, 303);
             btnClear.Name = "btnClear";
             btnClear.Size = new Size(134, 33);
             btnClear.TabIndex = 9;
@@ -461,11 +461,11 @@
             // 
             lblReadyReleaseCount.AutoSize = true;
             lblReadyReleaseCount.Font = new Font("Segoe UI", 11.25F);
-            lblReadyReleaseCount.Location = new Point(654, 158);
+            lblReadyReleaseCount.Location = new Point(654, 157);
             lblReadyReleaseCount.Name = "lblReadyReleaseCount";
-            lblReadyReleaseCount.Size = new Size(151, 20);
+            lblReadyReleaseCount.Size = new Size(153, 20);
             lblReadyReleaseCount.TabIndex = 30;
-            lblReadyReleaseCount.Text = "Ready Release Count:";
+            lblReadyReleaseCount.Text = "Release-Ready Count:";
             // 
             // lblRecoveringCountStatic
             // 
@@ -473,9 +473,9 @@
             lblRecoveringCountStatic.Font = new Font("Segoe UI", 11.25F);
             lblRecoveringCountStatic.Location = new Point(654, 116);
             lblRecoveringCountStatic.Name = "lblRecoveringCountStatic";
-            lblRecoveringCountStatic.Size = new Size(126, 20);
+            lblRecoveringCountStatic.Size = new Size(129, 20);
             lblRecoveringCountStatic.TabIndex = 29;
-            lblRecoveringCountStatic.Text = "Recovering Count";
+            lblRecoveringCountStatic.Text = "Recovering Count:";
             // 
             // lblSeriousCountStatic
             // 
@@ -552,7 +552,7 @@
             MaximizeBox = false;
             Name = "Form1";
             StartPosition = FormStartPosition.CenterScreen;
-            Text = "Form1";
+            Text = "Baobab Ridge Wildlife Records";
             Load += Form1_Load;
             ((System.ComponentModel.ISupportInitialize)dgvAnimals).EndInit();
             grpAnimalDetails.ResumeLayout(false);
